@@ -45,7 +45,7 @@ pipeline{
         scannerqubeHome = "${SONARQUBESCANNER}"
       }
       steps {
-        sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
+        sh '''${scannerHome}/bin/sonarqube-scanner -Dsonar.projectKey=vprofile \
         -Dsonar.projectName=vprofile \
         -Dsonar.projectVersion=1.0 \
         -Dsonar.sources=src/ \
