@@ -42,17 +42,19 @@ pipeline{
     }
     stage('Sonaqube Analysis') {
       environment {
-        scannerqubeHome = "${SONARQUBESCANNER}"
+        scannerHome = tool "${SONARQUBESCANNER}"
       }
       steps {
-        sh '''${scannerHome}/bin/sonarqube-scanner -Dsonar.projectKey=vprofile \
-        -Dsonar.projectName=vprofile \
-        -Dsonar.projectVersion=1.0 \
-        -Dsonar.sources=src/ \
-        -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-        -Dsonar.junit.reportsPath=target/surefire-reports/ \
-        -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-        -Dsonar.java.checkstyle.reportsPaths=target/checkstyle-result.xml'''
+        withSonarQubeEnv("${SONARQUBESERVER}") {
+          sh '''${scannerHome}/bin/sonarqube-scanner -Dsonar.projectKey=vprofile \
+          -Dsonar.projectName=vprofile \
+          -Dsonar.projectVersion=1.0 \
+          -Dsonar.sources=src/ \
+          -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+          -Dsonar.junit.reportsPath=target/surefire-reports/ \
+          -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+          -Dsonar.java.checkstyle.reportsPaths=target/checkstyle-result.xml'''
+        }
       }
     }
   }
