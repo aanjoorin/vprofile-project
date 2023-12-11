@@ -40,13 +40,13 @@ pipeline{
         sh "mvn -s settings.xml checkstyle:checkstyle"
       }
     }
-    stage('Sonarqube Analysis') {
+    stage('Sonar Analysis') {
       environment {
         scannerHome = tool "${SONARQUBESCANNER}"
       }
       steps {
         withSonarQubeEnv("${SONARQUBESERVER}") {
-          sh '''${scannerHome}/bin/sonarqube-scanner -Dsonar.projectKey=vprofile \
+          sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
           -Dsonar.projectName=vprofile \
           -Dsonar.projectVersion=1.0 \
           -Dsonar.sources=src/ \
