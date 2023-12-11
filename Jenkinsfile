@@ -40,7 +40,7 @@ pipeline{
         sh "mvn -s settings.xml checkstyle:checkstyle"
       }
     }
-    stage('Sonaqube Analysis') {
+    stage('Sonarqube Analysis') {
       environment {
         scannerHome = tool "${SONARQUBESCANNER}"
       }
